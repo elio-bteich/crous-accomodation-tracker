@@ -23,4 +23,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run your script
-        run: python3 /residence_crous_scrap_v2.py
+        run: python3 residence_crous_scrap_v2.py

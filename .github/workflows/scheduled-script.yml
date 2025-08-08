@@ -6,11 +6,14 @@ on:
       - main
   schedule:
     - cron: "*/5 * * * *"  # toutes les 5 minutes
+  workflow_dispatch:  # permet de déclencher manuellement le workflow
 
 jobs:
   init-json:
     if: github.event_name == 'push'  # ne s'exécute que sur push
     runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -38,6 +41,8 @@ jobs:
   update-json:
     if: github.event_name == 'schedule'  # ne s'exécute que sur la planification
     runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

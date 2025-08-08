@@ -4,12 +4,9 @@ import math
 import json
 import os
 from tqdm import tqdm
-from dotenv import load_dotenv
-
-load_dotenv()
 
 SAVE_FILE = "etat_disponibilite.json"
-DISCORD_WEBHOOK_URL = os.getenv("discord_webhook_url")
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
 def send_notification(nom, adresse, url):
     if not DISCORD_WEBHOOK_URL:

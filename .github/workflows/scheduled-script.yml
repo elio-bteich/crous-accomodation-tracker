@@ -1,19 +1,16 @@
-name: Run Script Periodically and on Push
+name: Manage JSON Availability
 
 on:
   push:
     branches:
-      - main       # ou la branche que tu veux surveiller
+      - main
   schedule:
-    - cron: "*/5 * * * *"   # toutes les 5 minutes
+    - cron: "*/5 * * * *"  # toutes les 5 minutes
 
 jobs:
-  run-script:
+  init-json:
+    if: github.event_name == 'push'  # ne s'exécute que sur push
     runs-on: ubuntu-latest
-    env:
-      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -23,10 +20,44 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: Run init_dispo.py script
+        run: python3 init_dispo.py
 
-      - name: Run your script
+      - name: Commit and push JSON if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add etat_disponibilite.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Initialize etat_disponibilite.json [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+  update-json:
+    if: github.event_name == 'schedule'  # ne s'exécute que sur la planification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run your update script
         run: python3 residence_crous_scrap_v2.py
+
+      - name: Commit and push JSON if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add etat_disponibilite.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update etat_disponibilite.json [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi

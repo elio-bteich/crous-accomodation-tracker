@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Run init_dispo.py script
         run: python3 init_dispo.py
 
@@ -50,6 +53,9 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run your update script
         run: python3 residence_crous_scrap_v2.py

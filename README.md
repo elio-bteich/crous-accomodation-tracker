@@ -26,8 +26,8 @@ Ce script Python permet de surveiller les nouvelles disponibilités de logements
 
 1. Cloner ce dépôt :
     ```bash
-    git clone https://github.com/ton-utilisateur/ton-repo.git
-    cd ton-repo
+    git clone https://github.com/elio-bteich/crous-accomodation-tracker.git
+    cd crous-accomodation-tracker
     ```
 
 2. Installer les dépendances :

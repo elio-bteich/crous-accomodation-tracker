@@ -46,4 +46,4 @@ Ce script Python permet de surveiller les nouvelles disponibilités de logements
 
 Lancer le script :
 ```bash
-python script.py
+python residence_crous_scrap_v2.py

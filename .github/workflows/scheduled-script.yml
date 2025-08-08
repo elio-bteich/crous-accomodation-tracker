@@ -1,18 +1,24 @@
-name: Run Script Periodically
+name: Run Script Periodically and on Push
 
 on:
+  push:
+    branches:
+      - main       # ou la branche que tu veux surveiller
   schedule:
-    - cron: "*/5 * * * *"   # every 5 minutes
+    - cron: "*/5 * * * *"   # toutes les 5 minutes
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup Python (if your script is Python)
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'

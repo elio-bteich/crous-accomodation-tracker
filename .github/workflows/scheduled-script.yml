@@ -30,13 +30,15 @@ jobs:
         run: python3 init_dispo.py
 
       - name: Commit and push JSON if changed
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add etat_disponibilite.json
           if ! git diff --cached --quiet; then
-            git commit -m "Initialize etat_disponibilite.json [skip ci]"
-            git push
+            git commit -m "Update etat_disponibilite.json [skip ci]"
+            git push https://x-access-token:${PAT_TOKEN}@github.com/elio-bteich/crous-accomodation-tracker.git HEAD:main
           else
             echo "No changes to commit"
           fi
@@ -61,13 +63,15 @@ jobs:
         run: python3 residence_crous_scrap_v2.py
 
       - name: Commit and push JSON if changed
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add etat_disponibilite.json
           if ! git diff --cached --quiet; then
             git commit -m "Update etat_disponibilite.json [skip ci]"
-            git push
+            git push https://x-access-token:${PAT_TOKEN}@github.com/elio-bteich/crous-accomodation-tracker.git HEAD:main
           else
             echo "No changes to commit"
           fi

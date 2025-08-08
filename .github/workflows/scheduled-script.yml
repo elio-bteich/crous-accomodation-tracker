@@ -39,7 +39,6 @@ jobs:
           fi
 
   update-json:
-    if: github.event_name == 'schedule'  # ne s'exécute que sur la planification
     runs-on: ubuntu-latest
     env:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}

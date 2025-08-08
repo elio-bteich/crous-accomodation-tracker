@@ -1,0 +1,26 @@
+name: Run Script Periodically
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # every 5 minutes
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python (if your script is Python)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run your script
+        run: python3 /residence_crous_scrap.py

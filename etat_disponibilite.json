@@ -1,6 +1,5 @@
 {
   "1477": true,
-  "1535": true,
   "1537": true,
   "1567": true,
   "1211": true,
@@ -9,6 +8,8 @@
   "1184": true,
   "2555": true,
   "1521": true,
+  "1535": true,
+  "302": true,
   "1491": false,
   "285": false,
   "1136": false,
@@ -370,7 +371,6 @@
   "299": false,
   "300": false,
   "301": false,
-  "302": false,
   "303": false,
   "304": false,
   "305": false,
